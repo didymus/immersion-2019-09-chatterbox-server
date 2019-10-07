@@ -1,7 +1,7 @@
 const Parse = {
 
-  server: `http://parse.opspark.hackreactor.com/chatterbox/classes/messages`,
-  // originally `opspark` was ${window.CAMPUS}
+  server: `http://parse.${window.CAMPUS}.hackreactor.com/chatterbox/classes/messages`,
+ 
   create: function(message, successCB, errorCB = null) {
     /* START SOLUTION */
     $.ajax({
@@ -38,5 +38,4 @@ const Parse = {
 
 };
 
-//window.Parse = Parse;
-module.exports.Parse = Parse;
+window.Parse = Parse;

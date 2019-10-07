@@ -11,7 +11,10 @@ this file and include it in basic-server.js so that it actually works.
 *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
 
 **************************************************************/
-//let url = require('../client/scripts/parse');
+// importing nodes url module, not sure if this is necessary yet
+const url = require('url');
+
+
 let data = {results:[]};
 
 // These headers will allow Cross-Origin Resource Sharing (CORS).
@@ -58,11 +61,12 @@ const requestHandler = (request, response) => {
   //
   // You will need to change this if you are sending something
   // other than plain text, like JSON or HTML.
-  headers['Content-Type'] = 'text/plain';
+  headers['Content-Type'] = 'text/plain'; // 'application/json'; ??
 
   // .writeHead() writes to the request line and headers of the response,
   // which includes the status and all headers.
   response.writeHead(statusCode, headers);
+
 
   // Make sure to always call response.end() - Node may not send
   // anything back to the client until you do. The string you pass to
@@ -73,6 +77,7 @@ const requestHandler = (request, response) => {
   // node to actually send all the data over to the client.
   console.log(data);
   response.end(JSON.stringify(data));
+  
 };
 
 module.exports.requestHandler = requestHandler
