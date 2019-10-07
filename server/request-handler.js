@@ -56,12 +56,17 @@ const requestHandler = (request, response) => {
 
   // See the note below about CORS headers.
   const headers = defaultCorsHeaders;
+  
+  if(request.url.slice(0, 8) !== '/classes'){ 
+    response.writeHead(404, headers);
+    response.end();
+  };
 
   // Tell the client we are sending them plain text.
   //
   // You will need to change this if you are sending something
   // other than plain text, like JSON or HTML.
-  headers['Content-Type'] = 'text/plain'; // 'application/json'; ??
+  headers['Content-Type'] = 'text/plain';
 
   // .writeHead() writes to the request line and headers of the response,
   // which includes the status and all headers.
@@ -80,4 +85,4 @@ const requestHandler = (request, response) => {
   
 };
 
-module.exports.requestHandler = requestHandler
+module.exports.requestHandler = requestHandler;
