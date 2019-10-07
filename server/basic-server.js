@@ -20,8 +20,9 @@ const ip = '127.0.0.1';
 // incoming requests.
 //
 // After creating the server, we will tell it to listen on the given port and IP. */
+const { requestHandler } = require('./request-handler');
 
-const server = http.createServer(handleRequest);
+const server = http.createServer(requestHandler);
 
 console.log(`Listening on http://${ip}:${port}`);
 server.listen(port, ip);

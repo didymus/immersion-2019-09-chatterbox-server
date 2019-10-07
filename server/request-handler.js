@@ -12,6 +12,7 @@ this file and include it in basic-server.js so that it actually works.
 
 **************************************************************/
 
+
 // These headers will allow Cross-Origin Resource Sharing (CORS).
 // This code allows this server to talk to websites that
 // are on different domains, for instance, your chat client.
@@ -73,3 +74,4 @@ const requestHandler = (request, response) => {
   response.end('Hello, World!');
 };
 
+module.exports.requestHandler = requestHandler;
