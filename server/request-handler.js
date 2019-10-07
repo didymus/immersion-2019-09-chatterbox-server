@@ -11,7 +11,8 @@ this file and include it in basic-server.js so that it actually works.
 *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
 
 **************************************************************/
-
+//let url = require('../client/scripts/parse');
+let data = {results:[]};
 
 // These headers will allow Cross-Origin Resource Sharing (CORS).
 // This code allows this server to talk to websites that
@@ -70,8 +71,8 @@ const requestHandler = (request, response) => {
   //
   // Calling .end "flushes" the response's internal buffer, forcing
   // node to actually send all the data over to the client.
-
-  response.end('Hello, World!');
+  console.log(data);
+  response.end(JSON.stringify(data));
 };
 
-module.exports.requestHandler = requestHandler;
+module.exports.requestHandler = requestHandler
