@@ -14,7 +14,6 @@ this file and include it in basic-server.js so that it actually works.
 // the object that will hold all the posts
 const data = {results:[]};
 
-
 // These headers will allow Cross-Origin Resource Sharing (CORS).
 // This code allows this server to talk to websites that
 // are on different domains, for instance, your chat client.
@@ -79,7 +78,7 @@ const requestHandler = (request, response) => {
   };
 
   // `POST` method
-if(request.method === 'POST'){
+  if (request.method === 'POST'){   // do this with OPTIONS !!!!!
   // change status code to 201
   response.writeHead(201, headers);
   let post = '';
@@ -94,6 +93,16 @@ if(request.method === 'POST'){
   // end the response
   response.end();
 }
+
+// if(request.method === 'OPTIONS'){
+//   response.writeHead(200, headers);
+//   response.end();
+// }
+
+// if(request.method === 'GET'){
+//   response.writeHead(statusCode, headers);
+//   response.end(JSON.stringify(data))
+// }
 
   // Make sure to always call response.end() - Node may not send
   // anything back to the client until you do. The string you pass to
