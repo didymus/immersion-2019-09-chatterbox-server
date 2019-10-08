@@ -14,6 +14,7 @@ this file and include it in basic-server.js so that it actually works.
 // the object that will hold all the posts
 const data = {results:[]};
 
+
 // These headers will allow Cross-Origin Resource Sharing (CORS).
 // This code allows this server to talk to websites that
 // are on different domains, for instance, your chat client.
@@ -62,6 +63,12 @@ const requestHandler = (request, response) => {
   // .writeHead() writes to the request line and headers of the response,
   // which includes the status and all headers.
   response.writeHead(statusCode, headers);
+
+  // request.options("*", function (req, res, next) {
+  //   res.header("Access-Control-Allow-Origin", req.get("Origin") || "*");
+  //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  //   res.status(200).end();
+  // })
   
   // if the end point does not exist
   if(request.url.slice(0, 8) !== '/classes'){ 
