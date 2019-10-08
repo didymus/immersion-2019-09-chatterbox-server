@@ -11,11 +11,8 @@ this file and include it in basic-server.js so that it actually works.
 *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
 
 **************************************************************/
-// importing nodes url module, not sure if this is necessary yet
-const url = require('url');
-
-
-let data = {results:[]};
+// the object that will hold all the posts
+const data = {results:[]};
 
 // These headers will allow Cross-Origin Resource Sharing (CORS).
 // This code allows this server to talk to websites that
@@ -57,21 +54,40 @@ const requestHandler = (request, response) => {
   // See the note below about CORS headers.
   const headers = defaultCorsHeaders;
   
-  if(request.url.slice(0, 8) !== '/classes'){ 
-    response.writeHead(404, headers);
-    response.end();
-  };
-
   // Tell the client we are sending them plain text.
   //
   // You will need to change this if you are sending something
   // other than plain text, like JSON or HTML.
-  headers['Content-Type'] = 'text/plain';
-
+  headers['Content-Type'] = 'application/json'; // originally was `'text/plain';`
+  
   // .writeHead() writes to the request line and headers of the response,
   // which includes the status and all headers.
   response.writeHead(statusCode, headers);
+  
+  // if the end point does not exist
+  if(request.url.slice(0, 8) !== '/classes'){ 
+    // then it should 404
+    response.writeHead(404, headers);
+    // end the response
+    response.end();
+  };
 
+  // `POST` method
+if(request.method === 'POST'){
+  // change status code to 201
+  response.writeHead(201, headers);
+  let post = '';
+  request.on('data', function(data){
+    // concat `data` to `post`
+    post += data;
+  })
+  request.on('end', function(){
+    // add the post to the `data` object
+    data.results.push(JSON.parse(post));
+  })
+  // end the response
+  response.end();
+}
 
   // Make sure to always call response.end() - Node may not send
   // anything back to the client until you do. The string you pass to
@@ -80,9 +96,8 @@ const requestHandler = (request, response) => {
   //
   // Calling .end "flushes" the response's internal buffer, forcing
   // node to actually send all the data over to the client.
-  console.log(data);
+  //console.log(data);
   response.end(JSON.stringify(data));
-  
 };
 
 module.exports.requestHandler = requestHandler;
