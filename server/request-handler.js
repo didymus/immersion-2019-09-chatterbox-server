@@ -30,7 +30,6 @@ const defaultCorsHeaders = {
   'access-control-max-age': 10, // Seconds.
 };
 
-
 const requestHandler = (request, response) => {
   // Request and Response come from node's http module.
   //
@@ -96,6 +95,7 @@ if(request.method === 'POST'){
   //
   // Calling .end "flushes" the response's internal buffer, forcing
   // node to actually send all the data over to the client.
+
   //console.log(data);
   response.end(JSON.stringify(data));
 };
